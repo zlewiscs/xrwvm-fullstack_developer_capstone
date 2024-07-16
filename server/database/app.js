@@ -1,11 +1,12 @@
+/*jshint esversion: 6 */
 import express, { raw } from 'express';
 import { connect } from 'mongoose';
 import { readFileSync } from 'fs';
 import cors from 'cors';
-const app = express()
+const app = express();
 const port = 3030;
 
-app.use(cors())
+app.use(cors());
 app.use(require('body-parser').urlencoded({ extended: false }));
 
 const reviews_data = JSON.parse(readFileSync("reviews.json", 'utf8'));
@@ -20,10 +21,10 @@ import { deleteMany as _deleteMany, insertMany as _insertMany, find as _find } f
 
 try {
   deleteMany({}).then(()=>{
-    insertMany(reviews_data['reviews']);
+    insertMany(reviews_data.reviews);
   });
   _deleteMany({}).then(()=>{
-    _insertMany(dealerships_data['dealerships']);
+    _insertMany(dealerships_data.dealerships);
   });
   
 } catch (error) {
@@ -33,7 +34,7 @@ try {
 
 // Express route to home
 app.get('/', async (req, res) => {
-    res.send("Welcome to the Mongoose API")
+    res.send("Welcome to the Mongoose API");
 });
 
 // Express route to fetch all reviews
@@ -92,19 +93,19 @@ app.get('/fetchDealer/:id', async (req, res) => {
 //Express route to insert review
 app.post('/insert_review', raw({ type: '*/*' }), async (req, res) => {
   data = JSON.parse(req.body);
-  const documents = await find().sort( { id: -1 } )
-  let new_id = documents[0]['id']+1
+  const documents = await find().sort( { id: -1 } );
+  let new_id = documents[0].id + 1;
 
   const review = new Reviews({
 		"id": new_id,
-		"name": data['name'],
-		"dealership": data['dealership'],
-		"review": data['review'],
-		"purchase": data['purchase'],
-		"purchase_date": data['purchase_date'],
-		"car_make": data['car_make'],
-		"car_model": data['car_model'],
-		"car_year": data['car_year'],
+		"name": data.name,
+		"dealership": data.dealership,
+		"review": data.review,
+		"purchase": data.purchase,
+		"purchase_date": data.purchase_date,
+		"car_make": data.car_make,
+		"car_model": data.car_model,
+		"car_year": data.car_year,
 	});
 
   try {

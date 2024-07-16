@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import { Schema as _Schema, model as _model } from 'mongoose';
 
 const Schema = _Schema;
