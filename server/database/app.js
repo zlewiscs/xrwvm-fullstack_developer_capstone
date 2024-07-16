@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/*jshint esversion: 8 */
 import express, { raw } from 'express';
 import { connect } from 'mongoose';
 import { readFileSync } from 'fs';
